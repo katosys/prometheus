@@ -25,6 +25,7 @@ RUN apk add -U --no-cache -t dev git go make gcc musl-dev \
     && mkdir /etc/prometheus /usr/share/prometheus \
     && mv console* /usr/share/prometheus \
     && ln -s /usr/share/prometheus/console* /etc/prometheus \
+    && cp documentation/examples/prometheus.yml /etc/prometheus \
     && apk del --purge dev && rm -rf /tmp/* /go
 
 #------------------------------------------------------------------------------
@@ -38,8 +39,9 @@ VOLUME [ "/etc/prometheus", \
 # Entrypoint and CMD:
 #------------------------------------------------------------------------------
 
+EXPOSE     9090
 ENTRYPOINT [ "prometheus" ]
 CMD        [ "-config.file=/etc/prometheus/prometheus.yml", \
              "-storage.local.path=/var/lib/prometheus", \
-             "-web.console.libraries=/usr/share/prometheus/console_libraries", \
-             "-web.console.templates=/usr/share/prometheus/consoles" ]
+             "-web.console.libraries=/etc/prometheus/console_libraries", \
+             "-web.console.templates=/etc/prometheus/consoles" ]
