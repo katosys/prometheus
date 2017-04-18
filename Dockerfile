@@ -10,7 +10,7 @@ MAINTAINER Marc Villacorta Morera <marc.villacorta@gmail.com>
 #------------------------------------------------------------------------------
 
 ENV GOPATH="/go" \
-    VERSION="1.5.2"
+    VERSION="1.6.0"
 
 #------------------------------------------------------------------------------
 # Build and install:
