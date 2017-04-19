@@ -2,21 +2,20 @@
 # Set the base image for subsequent instructions:
 #------------------------------------------------------------------------------
 
-FROM alpine:3.5
+FROM golang:1.8-alpine
 MAINTAINER Marc Villacorta Morera <marc.villacorta@gmail.com>
 
 #------------------------------------------------------------------------------
 # Environment variables:
 #------------------------------------------------------------------------------
 
-ENV GOPATH="/go" \
-    VERSION="1.6.0"
+ENV VERSION="1.6.0"
 
 #------------------------------------------------------------------------------
 # Build and install:
 #------------------------------------------------------------------------------
 
-RUN apk add -U --no-cache -t dev git go make gcc musl-dev \
+RUN apk add -U --no-cache -t dev git make gcc musl-dev \
     && mkdir -p ${GOPATH}/src/github.com/prometheus \
     && cd ${GOPATH}/src/github.com/prometheus \
     && git clone https://github.com/prometheus/prometheus.git \
@@ -26,7 +25,7 @@ RUN apk add -U --no-cache -t dev git go make gcc musl-dev \
     && mv console* /usr/share/prometheus \
     && ln -s /usr/share/prometheus/console* /etc/prometheus \
     && cp documentation/examples/prometheus.yml /etc/prometheus \
-    && apk del --purge dev && rm -rf /tmp/* /go
+    && apk del --purge dev && rm -rf /tmp/* /go /usr/local/go
 
 #------------------------------------------------------------------------------
 # Volumes:
