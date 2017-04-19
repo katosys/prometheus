@@ -38,6 +38,7 @@ VOLUME [ "/etc/prometheus", \
 # Entrypoint and CMD:
 #------------------------------------------------------------------------------
 
+WORKDIR    "/"
 EXPOSE     9090
 ENTRYPOINT [ "prometheus" ]
 CMD        [ "-config.file=/etc/prometheus/prometheus.yml", \
